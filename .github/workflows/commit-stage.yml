@@ -42,7 +42,7 @@ jobs:
           java-version: 17
           cache: maven
       - name: Build image and push to registry
-      run: |
-        chmod +x mvnw 
-        ./mvnw spring-boot:build-image
+        run: |
+          chmod +x mvnw 
+          ./mvnw spring-boot:build-image
 
