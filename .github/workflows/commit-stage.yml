@@ -1,0 +1,45 @@
+name: Commit Stage
+on: push
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: Mangushaa/gs-config-server
+  VERSION: 1
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: SetUp JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+      - name: Build
+        run: chmod +x | ./mvnw package
+  package:
+    name: package docker image
+    if: ${{ github.ref == 'refs/heads/master' }}
+    needs:
+      - build
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+      - name: Build image and push to registry
+        run: chmod +x | ./mvnw spring-boot:build-image
+
+

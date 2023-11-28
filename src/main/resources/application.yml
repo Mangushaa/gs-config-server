@@ -1,9 +1,16 @@
+server:
+  port: 8080
 spring:
   application:
     name: gs-config-server
-
   cloud:
     config:
       server:
         git:
           uri: https://github.com/Mangushaa/gs-configs.git
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
