@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gs-config-server
+  labels:
+    app: gs-config-server
+spec:
+  selector:
+    matchLabels:
+      app: gs-config-server
+  template:
+    metadata:
+      name: gs-config-server
+      labels:
+        app: gs-config-server
+    spec:
+      containers:
+        - name: gs-config-server
+          image: gs-config-server:1
+          imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gs-config-server
+  labels:
+    app: gs-config-server
+spec:
+  selector:
+    app: gs-config-server
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

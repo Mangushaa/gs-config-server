@@ -43,6 +43,6 @@ jobs:
           cache: maven
       - name: Build image and push to registry
         run: |
-          chmod +x mvnw 
-          ./mvnw spring-boot:build-image
+          chmod +x |
+          ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=${{REGISTRY}}/${{IMAGE_NAME}}/${{VERSION}}
 
